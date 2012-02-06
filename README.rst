@@ -117,6 +117,10 @@ with django-compressor affects which html parsers django-labjs uses.
 The only labjs specific setting is ``LABJS_ENABLED``, that defaults to the opposite of ``DEBUG``.
 When ``LABJS_ENABLED`` is False, the templatetags do nothing.
 
+
+``LABJS_IE7IE6_ENABLED`` flag enables labjs for ie6/7 if True. We experienced issues with those browers 
+hence the addition of this setting.
+
 Tips
 ----
 
