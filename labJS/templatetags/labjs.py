@@ -25,6 +25,17 @@ class LabjsNode(template.Node):
         #Check if in debug mode
         if self.debug_mode(context) or not settings.LABJS_ENABLED:
             return self.nodelist.render(context)
+        
+        # Check if we should allow labks to perform for IE6/7
+        # As it seems to have some issues in some cases.
+        request = context.get('request', None)
+        if request and settings['IE7IE6_LABJS_ENABLED']:
+            agent = request.META.get('HTTP_USER_AGENT', '').lower()
+            if "msie 7" in agent or "msie 6" in agent:
+                return self.nodelist.render(context)
+
+        if self.debug_mode(context) or not settings.LABJS_ENABLED:
+            return self.nodelist.render(context)
 
         # call compressor output method and handle exceptions
         rendered_output = Labjs(content=self.nodelist.render(context),context=context).render_output()
