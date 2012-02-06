@@ -29,7 +29,7 @@ class LabjsNode(template.Node):
         # Check if we should allow labks to perform for IE6/7
         # As it seems to have some issues in some cases.
         request = context.get('request', None)
-        if request and settings.LABJS_IE7IE6_ENABLED:
+        if request and not settings.LABJS_IE7IE6_ENABLED:
             agent = request.META.get('HTTP_USER_AGENT', '').lower()
             if "msie 7" in agent or "msie 6" in agent:
                 return self.nodelist.render(context)
